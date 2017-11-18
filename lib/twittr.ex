@@ -6,4 +6,34 @@ defmodule Twittr do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
+
+  import Ecto.Query, warn: false
+  alias Twittr.Repo
+  alias Twittr.Status
+
+  def list_statuses do
+    Repo.all(Status)
+  end
+
+  def get_status!(id), do: Repo.get!(Status, id)
+
+  def create_status(attrs \\ %{}) do
+    %Status{}
+    |> Status.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_status(%Status{} = status, attrs) do
+    status
+    |> Status.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_status(%Status{} = status) do
+    Repo.delete(status)
+  end
+
+  def change_status(%Status{} = status) do
+    Status.changeset(status, %{})
+  end
 end

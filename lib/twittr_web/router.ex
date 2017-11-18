@@ -7,5 +7,6 @@ defmodule TwittrWeb.Router do
 
   scope "/api", TwittrWeb do
     pipe_through :api
+    resources "/statuses", StatusController, except: [:new, :edit]
   end
 end
